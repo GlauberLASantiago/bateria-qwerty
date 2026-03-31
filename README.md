@@ -2,7 +2,8 @@
 
 Uma estação de bateria e percussão baseada em navegador, projetada para performance em tempo real.
 
-![Bateria QWERTY GL Preview](screenshot.png) *(Adicione uma captura de tela aqui)*
+<img width="1502" height="847" alt="image" src="https://github.com/user-attachments/assets/ab1d84d3-13a8-4634-93d4-7e0fdbae2aff" />
+
 
 ## ✨ Características Principais
 
