@@ -1,0 +1,460 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+Copyright (c) 2026 by surikov (http://jsbin.com/wajopuy/1/edit)
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+    <head>
+        <title>Bateria QWERTY GL - Console Profissional (Damped Rufo Edition)</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+        
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <!-- RESTORED JCLive Kicks & Snares -->
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12835_17_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12836_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12837_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12838_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12839_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12840_1_JCLive_sf2_file.js'></script>
+
+        <!-- PREMIUM FluidR3 Hats, Toms, Cymbals & Percussion -->
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12842_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12844_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12846_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12841_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12843_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12845_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12847_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12848_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12849_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12850_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12851_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12852_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12853_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12854_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12855_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12856_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12857_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12858_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12859_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12860_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12861_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12863_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12864_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12865_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12866_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12880_0_FluidR3_GM_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12881_0_FluidR3_GM_sf2_file.js'></script>
+
+        <script>
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContextFunc();
+            var player = new WebAudioFontPlayer();
+            var masterGain = audioContext.createGain();
+            var reverbNode = audioContext.createConvolver();
+            var reverbGain = audioContext.createGain();
+            var preDelayNode = audioContext.createDelay(1.0);
+            
+            masterGain.connect(audioContext.destination);
+            reverbGain.connect(masterGain);
+            reverbNode.connect(reverbGain);
+            preDelayNode.connect(reverbNode);
+            
+            function buildImpulseResponse(duration, decayFactor) {
+                var length = audioContext.sampleRate * duration;
+                var impulse = audioContext.createBuffer(2, length, audioContext.sampleRate);
+                var left = impulse.getChannelData(0);
+                var right = impulse.getChannelData(1);
+                for (var i = 0; i < length; i++) {
+                    var n = i / audioContext.sampleRate;
+                    var envelope = Math.exp(-n * decayFactor);
+                    left[i] = (Math.random() * 2 - 1) * envelope;
+                    right[i] = (Math.random() * 2 - 1) * envelope;
+                }
+                return impulse;
+            }
+
+            const reverbPresets = {
+                'studio': { d: 0.3, f: 18, p: 0.005 },
+                'room':   { d: 0.6, f: 10, p: 0.010 },
+                'club':   { d: 1.0, f: 7,  p: 0.020 },
+                'stage':  { d: 1.6, f: 6,  p: 0.035 },
+                'hall':   { d: 2.2, f: 4,  p: 0.050 },
+                'cathedral': { d: 3.5, f: 3, p: 0.080 },
+                'plate':  { d: 0.5, f: 15, p: 0.002 },
+                'stadium':{ d: 3.0, f: 3.5, p: 0.080 },
+                'void':   { d: 6.0, f: 2.5, p: 0.120 }
+            };
+            
+            function applyPreset(id) {
+                var p = reverbPresets[id];
+                reverbNode.buffer = buildImpulseResponse(p.d, p.f);
+                preDelayNode.delayTime.setTargetAtTime(p.p, audioContext.currentTime, 0.05);
+            }
+
+            applyPreset('room'); 
+            reverbGain.gain.value = 0.8;
+            masterGain.gain.value = 0.8;
+
+            const pitches = [35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,63,64,65,66,80,81];
+            pitches.forEach(p => {
+                let suffix = '';
+                if (p <= 40) {
+                    suffix = (p === 35) ? '17_JCLive_sf2_file' : '1_JCLive_sf2_file';
+                } else {
+                    suffix = '0_FluidR3_GM_sf2_file';
+                }
+                player.loader.decodeAfterLoading(audioContext, `_drum_${p}_${suffix}`);
+            });
+
+            let lastOpenHH = null;
+            let lastOpenTri = null; // Triangle Choking State (v10.8)
+            function playDrum(file, pitch, velocity = 0.85) {
+                if (audioContext.state === 'suspended') { audioContext.resume(); }
+                if (!file || !pitch) return;
+                const humanizedVel = Math.max(0.01, Math.min(1.0, velocity + (Math.random() * 0.2 - 0.1)));
+                
+                // Hi-Hat Choking logic
+                if ((pitch === 42 || pitch === 44) && lastOpenHH) {
+                    lastOpenHH.cancel();
+                    lastOpenHH = null;
+                }
+                // Triangle Choking logic (v10.8)
+                if (pitch === 80 && lastOpenTri) {
+                    lastOpenTri.cancel();
+                    lastOpenTri = null;
+                }
+
+                const noteGain = audioContext.createGain();
+                noteGain.gain.value = humanizedVel;
+                noteGain.connect(masterGain);
+
+                // Precision Duration Tuning (v10.6)
+                const sustainPitches = [46, 49, 51, 52, 53, 55, 57, 59, 81];
+                let duration = 3; 
+                if (pitch === 80) { duration = 0.12; } // Staccato Triangle Mute
+                else if (pitch === 53) { duration = 4; } // Ride Bell
+                else if (sustainPitches.includes(pitch)) { duration = 20; }
+                
+                const note = player.queueWaveTable(audioContext, noteGain, window[file], 0, pitch, duration);
+                const bypassReverb = [35, 36, 42, 44, 46, 49].includes(pitch);
+                if (!bypassReverb) { noteGain.connect(preDelayNode); }
+                
+                if (pitch === 46) lastOpenHH = note;
+                if (pitch === 81) lastOpenTri = note; // Store Open Triangle (v10.8)
+                triggerVisual(pitch);
+            }
+
+            function triggerVisual(pitch) {
+                const elements = document.querySelectorAll(`[data-pitch="${pitch}"]`);
+                elements.forEach(element => {
+                    element.classList.add('active');
+                    setTimeout(() => element.classList.remove('active'), 80);
+                });
+            }
+
+            const keyMap = {
+                'Digit1': { p: 58, f: '_drum_58_0_FluidR3_GM_sf2_file' },
+                'Digit2': { p: 65, f: '_drum_65_0_FluidR3_GM_sf2_file' },
+                'Digit3': { p: 66, f: '_drum_66_0_FluidR3_GM_sf2_file' },
+                'Digit4': { p: 80, f: '_drum_80_0_FluidR3_GM_sf2_file' },
+                'Digit5': { p: 81, f: '_drum_81_0_FluidR3_GM_sf2_file' },
+                'KeyQ': { p: 56, f: '_drum_56_0_FluidR3_GM_sf2_file' },
+                'KeyW': { p: 54, f: '_drum_54_0_FluidR3_GM_sf2_file' },
+                'KeyE': { p: 60, f: '_drum_60_0_FluidR3_GM_sf2_file' },
+                'KeyR': { p: 61, f: '_drum_61_0_FluidR3_GM_sf2_file' },
+                'KeyT': { p: 63, f: '_drum_63_0_FluidR3_GM_sf2_file' },
+                'KeyY': { p: 64, f: '_drum_64_0_FluidR3_GM_sf2_file' },
+                'KeyU': { p: 59, f: '_drum_59_0_FluidR3_GM_sf2_file' },
+                'KeyI': { p: 53, f: '_drum_53_0_FluidR3_GM_sf2_file' },
+                'KeyO': { p: 55, f: '_drum_55_0_FluidR3_GM_sf2_file' },
+                'KeyP': { p: 52, f: '_drum_52_0_FluidR3_GM_sf2_file' },
+                'KeyA': { p: 36, f: '_drum_36_1_JCLive_sf2_file' },
+                'KeyS': { p: 40, f: '_drum_40_1_JCLive_sf2_file' },
+                'KeyD': { p: 39, f: '_drum_39_1_JCLive_sf2_file' },
+                'KeyF': { p: 42, f: '_drum_42_0_FluidR3_GM_sf2_file' },
+                'KeyG': { p: 44, f: '_drum_44_0_FluidR3_GM_sf2_file' },
+                'KeyH': { p: 46, f: '_drum_46_0_FluidR3_GM_sf2_file' },
+                'KeyJ': { p: 51, f: '_drum_51_0_FluidR3_GM_sf2_file' },
+                'KeyK': { p: 49, f: '_drum_49_0_FluidR3_GM_sf2_file' },
+                'KeyL': { p: 57, f: '_drum_57_0_FluidR3_GM_sf2_file' },
+                'KeyZ': { p: 35, f: '_drum_35_17_JCLive_sf2_file' },
+                'KeyX': { p: 38, f: '_drum_38_1_JCLive_sf2_file' },
+                'KeyC': { p: 37, f: '_drum_37_1_JCLive_sf2_file' },
+                'KeyV': { p: 41, f: '_drum_41_0_FluidR3_GM_sf2_file' },
+                'KeyB': { p: 43, f: '_drum_43_0_FluidR3_GM_sf2_file' },
+                'KeyN': { p: 45, f: '_drum_45_0_FluidR3_GM_sf2_file' },
+                'KeyM': { p: 47, f: '_drum_47_0_FluidR3_GM_sf2_file' },
+                'Comma': { p: 48, f: '_drum_48_0_FluidR3_GM_sf2_file' },
+                'Period': { p: 50, f: '_drum_50_0_FluidR3_GM_sf2_file' }
+            };
+
+            const activeKeys = new Map(); 
+            const pendingRufo = new Set();
+            let globalVelocity = 0.8; 
+            let currentRufoDelay = 350;
+
+            function updateDynamicsUI(mode) {
+                document.querySelectorAll('[data-mode]').forEach(k => k.classList.remove('active-mode'));
+                const target = document.querySelector(`[data-mode="${mode}"]`);
+                if (target) target.classList.add('active-mode');
+            }
+            function chaosLoop(code) {
+                if (!activeKeys.has(code)) return;
+                const mapping = keyMap[code];
+                const baseVelocity = activeKeys.get(code); 
+                const mutedVelocity = baseVelocity * 0.65; 
+                if (mapping) playDrum(mapping.f, mapping.p, mutedVelocity);
+                
+                // Variable Repetition Rate Logic (v10.9)
+                const slowPitches = [37, 39, 41, 43, 45, 47, 48, 50, 57, 58, 60, 61, 63, 64, 65, 66];
+                const pitch = mapping ? mapping.p : 0;
+                const delay = slowPitches.includes(pitch) 
+                    ? (Math.random() * 60 + 40) // Balanced: 40ms - 100ms (v11.0)
+                    : (Math.random() * 50 + 20); // Fast: 20ms - 70ms
+                
+                setTimeout(() => chaosLoop(code), delay);
+            }
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Minus') { globalVelocity = 0.3; updateDynamicsUI('piano'); return; }
+                if (e.code === 'Equal') { globalVelocity = 1.0; updateDynamicsUI('forte'); return; }
+                if (e.code === 'Digit0') { globalVelocity = 0.8; updateDynamicsUI('normal'); return; }
+                if (keyMap[e.code]) {
+                    e.preventDefault();
+                    if (e.repeat) return; 
+                    const code = e.code;
+                    if (!activeKeys.has(code)) {
+                        let velocity = e.shiftKey ? 1.0 : globalVelocity;
+                        activeKeys.set(code, velocity);
+                        const mapping = keyMap[code];
+                        playDrum(mapping.f, mapping.p, velocity);
+                        const noRufo = [35, 36, 37, 44, 49]; // Stick Rufo Disabled (v11.1)
+                        if (!noRufo.includes(mapping.p)) {
+                            pendingRufo.add(code);
+                            setTimeout(() => {
+                                if (activeKeys.has(code) && pendingRufo.has(code)) {
+                                    chaosLoop(code);
+                                    pendingRufo.delete(code);
+                                }
+                            }, currentRufoDelay); 
+                        }
+                    }
+                }
+            });
+            window.addEventListener('keyup', (e) => {
+                const code = e.code;
+                if (activeKeys.has(code)) activeKeys.delete(code);
+                if (pendingRufo.has(code)) pendingRufo.delete(code);
+            });
+            function updateVolume(val) { masterGain.gain.setTargetAtTime(val / 100, audioContext.currentTime, 0.05); }
+            function updateReverbMix(val) { reverbGain.gain.setTargetAtTime(val / 100, audioContext.currentTime, 0.05); }
+            function updatePreset(id) { applyPreset(id); }
+            function updateRufoDelay(val) { currentRufoDelay = parseInt(val); document.getElementById('rufoVal').innerText = val + 'ms'; }
+        </script>
+        <style type="text/css">
+            :root {
+                --kick: #ff2d55; --snare: #34c759; --tom: #ff9500; --hihat: #007aff; --cymbal: #5856d6; --perc: #00ffff;
+                --accent: #6c5ce7; --dynamics: #ffcc00;
+                --glass-bg: rgba(255, 255, 255, 0.05);
+                --glass-border: rgba(255, 255, 255, 0.15);
+                --glass-glow: rgba(255, 255, 255, 0.02);
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                font-family: 'Outfit', sans-serif; background: #050508; color: #fff;
+                min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-x: hidden; padding: 2rem 0;
+            }
+            .blob { position: fixed; width: 1400px; height: 1400px; z-index: 0; filter: blur(150px); pointer-events: none; opacity: 0.15; }
+            .blob-1 { top: -600px; left: -600px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); }
+            .blob-2 { bottom: -600px; right: -600px; background: radial-gradient(circle, var(--kick) 0%, transparent 70%); }
+            .main-container {
+                width: 98%; max-width: 1450px; padding: 3rem; 
+                background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+                backdrop-filter: blur(50px); border: 1px solid var(--glass-border); border-radius: 60px;
+                box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.9); z-index: 1; display: flex; flex-direction: column; align-items: center;
+            }
+            header { text-align: center; margin-bottom: 3rem; }
+            header h1 { 
+                font-weight: 800; font-size: 3.5rem; letter-spacing: -3px; margin-bottom: 0.5rem; 
+                background: linear-gradient(to right, #fff, rgba(255,255,255,0.4)); 
+                -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
+                text-transform: uppercase;
+            }
+            header p { opacity: 0.4; letter-spacing: 6px; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; }
+            .settings-panel {
+                display: flex; gap: 4rem; justify-content: center; align-items: center; flex-wrap: wrap;
+                background: rgba(0,0,0,0.2); padding: 1.5rem 4rem; border-radius: 35px;
+                border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem;
+            }
+            .control-group { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
+            .control-group label { font-size: 0.6rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.7; }
+            .group-val { font-size: 0.7rem; font-weight: 800; color: var(--accent); margin-top: 5px; }
+            select { 
+                background: rgba(255,255,255,0.1); color: #fff; 
+                border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; 
+                border-radius: 15px; font-size: 0.85rem; font-weight: 600;
+                outline: none; transition: all 0.2s; cursor: pointer;
+            }
+            select:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(108, 92, 231, 0.3); background: rgba(255,255,255,0.15); }
+            select option { background: #000; color: #fff; padding: 10px; }
+            input[type=range] { width: 160px; height: 3px; appearance: none; background: rgba(255,255,255,0.1); border-radius: 10px; outline: none; }
+            input[type=range]::-webkit-slider-thumb { appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 15px var(--accent); }
+            .keyboard-visual {
+                display: flex; flex-direction: column; gap: 12px; padding: 25px;
+                background: rgba(0,0,0,0.4); border-radius: 40px; border: 1px solid rgba(255,255,255,0.03);
+            }
+            .key-row { display: flex; gap: 10px; justify-content: flex-start; width: 100%; }
+            .row-1, .row-2 { margin-left: 0; }
+            .row-3 { margin-left: 35px; }
+            .row-4 { margin-left: 75px; }
+            .key-cap {
+                width: 82px; height: 82px;
+                background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 18px; position: relative; cursor: pointer;
+                transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                box-shadow: 0 5px 0 rgba(0,0,0,0.4);
+            }
+            .key-cap:hover:not(.inactive) { background: rgba(255,255,255,0.07); transform: translateY(-2px); border-color: rgba(255,255,255,0.2); }
+            .key-cap.inactive { cursor: default; opacity: 0.1; filter: grayscale(1); border-color: transparent; }
+            .key-cap.active:not(.inactive) { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0); }
+            .key-cap[data-mode] { background: rgba(255,204,0,0.05); border-color: rgba(255,204,0,0.2); }
+            .key-cap[data-mode] .sound-name { color: var(--dynamics); opacity: 0.8; }
+            .key-cap.active-mode { background: var(--dynamics) !important; box-shadow: 0 0 40px var(--dynamics); }
+            .key-cap.active-mode .kbd-label, .key-cap.active-mode .sound-name { color: #000 !important; opacity: 1; }
+            .kbd-label { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 800; opacity: 0.7; position: absolute; top: 8px; left: 10px; }
+            .sound-name { font-size: 0.6rem; font-weight: 600; text-align: center; padding: 0 5px; margin-top: 15px; opacity: 0.6; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.8px; }
+            [data-cat="kick"]:not(.inactive) { background: rgba(255, 45, 85, 0.05); border-color: rgba(255, 45, 85, 0.2); }
+            [data-cat="kick"].active { background: var(--kick); box-shadow: 0 0 50px var(--kick); }
+            [data-cat="snare"]:not(.inactive) { background: rgba(52, 199, 189, 0.05); border-color: rgba(52, 199, 189, 0.2); }
+            [data-cat="snare"].active { background: var(--snare); box-shadow: 0 0 50px var(--snare); }
+            [data-cat="tom"]:not(.inactive) { background: rgba(255, 149, 0, 0.05); border-color: rgba(255, 149, 0, 0.2); }
+            [data-cat="tom"].active { background: var(--tom); box-shadow: 0 0 50px var(--tom); }
+            [data-cat="hihat"]:not(.inactive) { background: rgba(0, 122, 255, 0.05); border-color: rgba(0, 122, 255, 0.2); }
+            [data-cat="hihat"].active { background: var(--hihat); box-shadow: 0 0 50px var(--hihat); }
+            [data-cat="cymbal"]:not(.inactive) { background: rgba(88, 86, 214, 0.05); border-color: rgba(88, 86, 214, 0.2); }
+            [data-cat="cymbal"].active { background: var(--cymbal); box-shadow: 0 0 50px var(--cymbal); }
+            [data-cat="perc"]:not(.inactive) { background: rgba(0, 255, 255, 0.05); border-color: rgba(0, 255, 255, 0.2); }
+            [data-cat="perc"].active { background: var(--perc); box-shadow: 0 0 50px var(--perc); }
+
+            /* Responsive Adaptability (v11.2) */
+            @media (max-width: 1300px) {
+                .main-container { padding: 2rem; width: 95%; border-radius: 40px; }
+                header h1 { font-size: 2.8rem; }
+                .key-cap { width: 70px; height: 70px; border-radius: 14px; }
+                .kbd-label { font-size: 1rem; }
+                .sound-name { font-size: 0.55rem; margin-top: 10px; }
+            }
+
+            @media (max-width: 992px) {
+                .settings-panel { gap: 2rem; padding: 1.5rem 2rem; }
+                .key-cap { width: 58px; height: 58px; border-radius: 12px; }
+                .kbd-label { font-size: 0.85rem; top: 5px; left: 6px; }
+                .sound-name { display: none; } /* Hide text on small tablets to save space */
+                .keyboard-visual { padding: 15px; border-radius: 25px; }
+                .row-3, .row-4 { margin-left: 0; display: flex; justify-content: center; }
+                .key-row { justify-content: center; }
+            }
+
+            @media (max-width: 600px) {
+                header h1 { font-size: 1.8rem; letter-spacing: -1px; }
+                header p { font-size: 0.6rem; letter-spacing: 3px; }
+                .settings-panel { flex-direction: column; gap: 1.5rem; padding: 1.5rem; border-radius: 20px; }
+                .control-group input[type=range] { width: 100%; max-width: 200px; }
+                .key-cap { width: 44px; height: 44px; border-radius: 8px; box-shadow: 0 3px 0 rgba(0,0,0,0.4); }
+                .kbd-label { font-size: 0.75rem; }
+                .keyboard-visual { gap: 8px; }
+                .key-row { gap: 5px; }
+                footer { padding: 1rem; width: 95%; }
+                .footer-info { font-size: 0.7rem; }
+            }
+
+            footer { margin-top: 4rem; padding: 2rem; text-align: center; background: rgba(255,255,255,0.02); border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); width: 90%; max-width: 900px; }
+            .footer-info { font-size: 0.85rem; font-weight: 400; opacity: 0.6; line-height: 1.8; letter-spacing: 0.5px; }
+            .footer-links { margin-top: 0.5rem; font-size: 0.75rem; font-weight: 600; color: var(--accent); letter-spacing: 1px; }
+            .footer-links span { margin: 0 10px; opacity: 0.2; color: #fff; }
+        </style>
+    </head>
+    <body onclick="audioContext.resume()">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="main-container">
+            <header>
+                <h1>Bateria QWERTY GL</h1>
+                <p>Advanced Percussion Console v10.5 • Professional Hybrid Edition</p>
+            </header>
+            <div class="settings-panel">
+                <div class="control-group"><label>Volume Mestre</label><input type="range" min="0" max="100" value="80" oninput="updateVolume(this.value)"></div>
+                <div class="control-group"><label>Atraso do Rufo</label><input type="range" min="50" max="1000" step="10" value="350" oninput="updateRufoDelay(this.value)"><span class="group-val" id="rufoVal">350ms</span></div>
+                <div class="control-group"><label>Ambiente Acústico</label><select onchange="updatePreset(this.value)"><option value="studio">Estúdio (Seco)</option><option value="room" selected>Sala Pequena (Padrão)</option><option value="club">Jazz Club</option><option value="stage">Palco Concertante</option><option value="hall">Grande Auditório</option><option value="cathedral">Catedral Gótica</option><option value="plate">Vintage Plate</option><option value="stadium">Estádio</option><option value="void">O Vácuo</option></select></div>
+                <div class="control-group"><label>Mix Reverberação</label><input type="range" min="0" max="100" value="80" oninput="updateReverbMix(this.value)"></div>
+            </div>
+            <div class="keyboard-visual">
+                <div class="key-row row-1">
+                    <div class="key-cap" data-cat="perc" data-pitch="58" onclick="playDrum('_drum_58_0_FluidR3_GM_sf2_file', 58)"><span class="kbd-label">1</span><span class="sound-name">Vibraslap</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="65" onclick="playDrum('_drum_65_0_FluidR3_GM_sf2_file', 65)"><span class="kbd-label">2</span><span class="sound-name">Timbale Hi</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="66" onclick="playDrum('_drum_66_0_FluidR3_GM_sf2_file', 66)"><span class="kbd-label">3</span><span class="sound-name">Timbale Lo</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="80" onclick="playDrum('_drum_80_0_FluidR3_GM_sf2_file', 80)"><span class="kbd-label">4</span><span class="sound-name">Tri Cl</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="81" onclick="playDrum('_drum_81_0_FluidR3_GM_sf2_file', 81)"><span class="kbd-label">5</span><span class="sound-name">Tri Op</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">6</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">7</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">8</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">9</span></div>
+                    <div class="key-cap active-mode" data-mode="normal"><span class="kbd-label">0</span><span class="sound-name">Normal<br>(Reset)</span></div>
+                    <div class="key-cap" data-mode="piano"><span class="kbd-label">-</span><span class="sound-name">Piano<br>(Soft)</span></div>
+                    <div class="key-cap" data-mode="forte"><span class="kbd-label">=</span><span class="sound-name">Forte<br>(Loud)</span></div>
+                </div>
+                <div class="key-row row-2">
+                    <div class="key-cap" data-cat="perc" data-pitch="56" onclick="playDrum('_drum_56_0_FluidR3_GM_sf2_file', 56)"><span class="kbd-label">Q</span><span class="sound-name">Cowbell</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="54" onclick="playDrum('_drum_54_0_FluidR3_GM_sf2_file', 54)"><span class="kbd-label">W</span><span class="sound-name">Tambourine</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="60" onclick="playDrum('_drum_60_0_FluidR3_GM_sf2_file', 60)"><span class="kbd-label">E</span><span class="sound-name">Bongo H</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="61" onclick="playDrum('_drum_61_0_FluidR3_GM_sf2_file', 61)"><span class="kbd-label">R</span><span class="sound-name">Bongo L</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="63" onclick="playDrum('_drum_63_0_FluidR3_GM_sf2_file', 63)"><span class="kbd-label">T</span><span class="sound-name">Conga Op</span></div>
+                    <div class="key-cap" data-cat="perc" data-pitch="64" onclick="playDrum('_drum_64_0_FluidR3_GM_sf2_file', 64)"><span class="kbd-label">Y</span><span class="sound-name">Conga Lo</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="59" onclick="playDrum('_drum_59_0_FluidR3_GM_sf2_file', 59)"><span class="kbd-label">U</span><span class="sound-name">Ride 2</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="53" onclick="playDrum('_drum_53_0_FluidR3_GM_sf2_file', 53)"><span class="kbd-label">I</span><span class="sound-name">Ride Bell</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="55" onclick="playDrum('_drum_55_0_FluidR3_GM_sf2_file', 55)"><span class="kbd-label">O</span><span class="sound-name">Splash</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="52" onclick="playDrum('_drum_52_0_FluidR3_GM_sf2_file', 52)"><span class="kbd-label">P</span><span class="sound-name">China</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">[</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">]</span></div>
+                </div>
+                <div class="key-row row-3">
+                    <div class="key-cap" data-cat="kick" data-pitch="36" onclick="playDrum('_drum_36_1_JCLive_sf2_file', 36)"><span class="kbd-label">A</span><span class="sound-name">Kick 2</span></div>
+                    <div class="key-cap" data-cat="snare" data-pitch="40" onclick="playDrum('_drum_40_1_JCLive_sf2_file', 40)"><span class="kbd-label">S</span><span class="sound-name">Snare B</span></div>
+                    <div class="key-cap" data-cat="snare" data-pitch="39" onclick="playDrum('_drum_39_1_JCLive_sf2_file', 39)"><span class="kbd-label">D</span><span class="sound-name">Clap</span></div>
+                    <div class="key-cap" data-cat="hihat" data-pitch="42" onclick="playDrum('_drum_42_0_FluidR3_GM_sf2_file', 42)"><span class="kbd-label">F</span><span class="sound-name">Closed HH</span></div>
+                    <div class="key-cap" data-cat="hihat" data-pitch="44" onclick="playDrum('_drum_44_0_FluidR3_GM_sf2_file', 44)"><span class="kbd-label">G</span><span class="sound-name">Pedal HH</span></div>
+                    <div class="key-cap" data-cat="hihat" data-pitch="46" onclick="playDrum('_drum_46_0_FluidR3_GM_sf2_file', 46)"><span class="kbd-label">H</span><span class="sound-name">Open HH</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="51" onclick="playDrum('_drum_51_0_FluidR3_GM_sf2_file', 51)"><span class="kbd-label">J</span><span class="sound-name">Ride 1</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="49" onclick="playDrum('_drum_49_0_FluidR3_GM_sf2_file', 49)"><span class="kbd-label">K</span><span class="sound-name">Crash 1</span></div>
+                    <div class="key-cap" data-cat="cymbal" data-pitch="57" onclick="playDrum('_drum_57_0_FluidR3_GM_sf2_file', 57)"><span class="kbd-label">L</span><span class="sound-name">Crash 2</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">;</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">'</span></div>
+                </div>
+                <div class="key-row row-4">
+                    <div class="key-cap" data-cat="kick" data-pitch="35" onclick="playDrum('_drum_35_17_JCLive_sf2_file', 35)"><span class="kbd-label">Z</span><span class="sound-name">Kick 1</span></div>
+                    <div class="key-cap" data-cat="snare" data-pitch="38" onclick="playDrum('_drum_38_1_JCLive_sf2_file', 38)"><span class="kbd-label">X</span><span class="sound-name">Snare A</span></div>
+                    <div class="key-cap" data-cat="snare" data-pitch="37" onclick="playDrum('_drum_37_1_JCLive_sf2_file', 37)"><span class="kbd-label">C</span><span class="sound-name">Stick</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="41" onclick="playDrum('_drum_41_0_FluidR3_GM_sf2_file', 41)"><span class="kbd-label">V</span><span class="sound-name">Floor Tom L</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="43" onclick="playDrum('_drum_43_0_FluidR3_GM_sf2_file', 43)"><span class="kbd-label">B</span><span class="sound-name">Floor Tom H</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="45" onclick="playDrum('_drum_45_0_FluidR3_GM_sf2_file', 45)"><span class="kbd-label">N</span><span class="sound-name">Tom Lo</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="47" onclick="playDrum('_drum_47_0_FluidR3_GM_sf2_file', 47)"><span class="kbd-label">M</span><span class="sound-name">Tom M2</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="48" onclick="playDrum('_drum_48_0_FluidR3_GM_sf2_file', 48)"><span class="kbd-label">,</span><span class="sound-name">Tom M1</span></div>
+                    <div class="key-cap" data-cat="tom" data-pitch="50" onclick="playDrum('_drum_50_0_FluidR3_GM_sf2_file', 50)"><span class="kbd-label">.</span><span class="sound-name">Tom Hi</span></div>
+                    <div class="key-cap inactive"><span class="kbd-label">/</span></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div style="opacity: 0.3; letter-spacing: 5px; font-size: 0.65rem; margin-bottom: 1.2rem; text-transform: uppercase;">Powered by <a href="https://github.com/surikov/webaudiofont" target="_blank" style="color: inherit; text-decoration: underline;">WebAudioFont</a> • QWERTY FULL CONSOLE v10.5</div>
+            <div class="footer-info">Desenvolvido pelo professor <strong>Glauber Santiago</strong> — DAC/UFSCar</div>
+            <div class="footer-links">servidores.ufscar.br/glauber/ <span>•</span> sites.google.com/view/glauberia</div>
+        </footer>
+    </body>
+</html>
